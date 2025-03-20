@@ -4,6 +4,8 @@ using OneBeyondApi.Model;
 
 namespace OneBeyondApi.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class ReservationController : ControllerBase
     {
         private readonly IReservationRepository _reservationRepository;
@@ -11,6 +13,32 @@ namespace OneBeyondApi.Controllers
         public ReservationController(IReservationRepository reservationRepository)
         {
             _reservationRepository = reservationRepository;    
+        }
+
+        [HttpGet]
+        [Route("GetBookAvailability")]
+        public async Task<IActionResult> GetBookAvailability(Guid bookId)
+        {
+            var bookStock = await _reservationRepository.GetBookOnLoanByIdAsync(bookId);
+
+            if (bookStock == null)
+            {
+                return BadRequest($"No book found that is on loan for Book Id: {bookId}");
+            }
+
+            if (bookStock.OnLoanTo == null)
+            {
+                return Ok($"Book is not currently on loan and is currently available");
+            }
+
+            if (bookStock.Reservations?.Count == 0)
+            {
+                return Ok($"Book is available from {bookStock.LoanEndDate.Value.AddDays(1)}");
+            }
+
+            var lastReservationDate = bookStock.Reservations?.Last().ReservedTo.AddDays(1);
+
+            return Ok($"Book is available from {lastReservationDate}");
         }
 
         [HttpPost]

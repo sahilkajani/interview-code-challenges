@@ -5,6 +5,8 @@ using OneBeyondApi.Model;
 
 namespace OneBeyondApi.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class OnLoanController : ControllerBase
     {
         private readonly IOnLoanRepository _onLoanRepository;
