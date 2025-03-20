@@ -18,7 +18,6 @@ namespace OneBeyondApi.Controllers
             _onLoanRepository = onLoanRepository;
             _fineCalculator = fineCalculator;
             _fineRepository = fineRepository;
-
         }
 
         [HttpGet]

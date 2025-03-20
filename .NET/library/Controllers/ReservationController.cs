@@ -19,11 +19,11 @@ namespace OneBeyondApi.Controllers
         [Route("GetBookAvailability")]
         public async Task<IActionResult> GetBookAvailability(Guid bookId)
         {
-            var bookStock = await _reservationRepository.GetBookOnLoanByIdAsync(bookId);
+            var bookStock = await _reservationRepository.GetBookByIdAsync(bookId);
 
             if (bookStock == null)
             {
-                return BadRequest($"No book found that is on loan for Book Id: {bookId}");
+                return BadRequest($"No book found for Book Id: {bookId}");
             }
 
             if (bookStock.OnLoanTo == null)

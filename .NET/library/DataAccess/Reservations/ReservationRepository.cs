@@ -11,6 +11,7 @@ namespace OneBeyondApi.DataAccess.Reservations
         {
             _context = context;     
         }
+
         public async Task<BookStock?> GetBookOnLoanByIdAsync(Guid bookId)
         {
             return await _context.Catalogue
@@ -18,6 +19,15 @@ namespace OneBeyondApi.DataAccess.Reservations
                 .Include(x => x.OnLoanTo)
                 .Include(x => x.Reservations)
                 .Where(x => x.OnLoanTo != null)
+                .FirstOrDefaultAsync(x => x.Book.Id == bookId);
+        }
+
+        public async Task<BookStock?> GetBookByIdAsync(Guid bookId)
+        {
+            return await _context.Catalogue
+                .Include(x => x.Book)
+                .Include(x => x.OnLoanTo)
+                .Include(x => x.Reservations)
                 .FirstOrDefaultAsync(x => x.Book.Id == bookId);
         }
 
