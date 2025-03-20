@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using OneBeyondApi.DataAccess.OnLoan;
+using OneBeyondApi.Model;
 
 namespace OneBeyondApi.Controllers
 {
@@ -14,9 +15,9 @@ namespace OneBeyondApi.Controllers
 
         [HttpGet]
         [Route("GetCurrentBooksOnLoan")]
-        public ActionResult GetCurrentBooksOnLoan()
+        public async Task<ActionResult<OnLoan>> GetCurrentBooksOnLoan()
         {
-            var booksOnLoan = _onLoanRepository.GetBooksOnLoan();
+            var booksOnLoan = await _onLoanRepository.GetBooksOnLoanAsync();
 
             if (booksOnLoan == null || !booksOnLoan.Any())
             {

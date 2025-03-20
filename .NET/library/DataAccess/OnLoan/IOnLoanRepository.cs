@@ -2,6 +2,6 @@
 {
     public interface IOnLoanRepository
     {
-        IEnumerable<OneBeyondApi.Model.OnLoan> GetBooksOnLoan();
+        Task<IEnumerable<OneBeyondApi.Model.OnLoan>> GetBooksOnLoanAsync();
     }
 }

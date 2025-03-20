@@ -11,19 +11,19 @@ namespace OneBeyondApi.DataAccess.OnLoan
             _context = context;
         }
 
-        public IEnumerable<OneBeyondApi.Model.OnLoan> GetBooksOnLoan()
+        public async Task<IEnumerable<OneBeyondApi.Model.OnLoan>> GetBooksOnLoanAsync()
         {
-            return _context.Catalogue
-                    .Include(x => x.Book)
-                    .Include(x => x.OnLoanTo)
-                    .Where(x => x.OnLoanTo != null)
-                    .Select(x => new OneBeyondApi.Model.OnLoan()
-                    {
-                        BookName = x.Book.Name,
-                        BorrowerEmailAddress = x.OnLoanTo.EmailAddress,
-                        BorrowerName = x.OnLoanTo.Name
+            return await _context.Catalogue
+                        .Include(x => x.Book)
+                        .Include(x => x.OnLoanTo)
+                        .Where(x => x.OnLoanTo != null)
+                        .Select(x => new OneBeyondApi.Model.OnLoan()
+                        {
+                            BookName = x.Book.Name,
+                            BorrowerEmailAddress = x.OnLoanTo.EmailAddress,
+                            BorrowerName = x.OnLoanTo.Name
 
-                    }).ToList();
+                        }).ToListAsync();
         }
     }
 }
