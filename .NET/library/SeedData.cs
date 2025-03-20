@@ -5,7 +5,7 @@ namespace OneBeyondApi
 {
     public class SeedData
     {
-        public static void SetInitialData()
+        public static void SetInitialData(LibraryContext context)
         {
             var ernestMonkjack = new Author
             {
@@ -83,28 +83,24 @@ namespace OneBeyondApi
                 LoanEndDate = null
             };
 
-            using (var context = new LibraryContext())
-            {
-                context.Authors.Add(ernestMonkjack);
-                context.Authors.Add(sarahKennedy);
-                context.Authors.Add(margaretJones);
+            context.Authors.Add(ernestMonkjack);
+            context.Authors.Add(sarahKennedy);
+            context.Authors.Add(margaretJones);
 
 
-                context.Books.Add(clayBook);
-                context.Books.Add(agileBook);
-                context.Books.Add(rustBook);
+            context.Books.Add(clayBook);
+            context.Books.Add(agileBook);
+            context.Books.Add(rustBook);
 
-                context.Borrowers.Add(daveSmith);
-                context.Borrowers.Add(lianaJames);
+            context.Borrowers.Add(daveSmith);
+            context.Borrowers.Add(lianaJames);
 
-                context.Catalogue.Add(bookOnLoanUntilToday);
-                context.Catalogue.Add(bookNotOnLoan);
-                context.Catalogue.Add(bookOnLoanUntilNextWeek);
-                context.Catalogue.Add(rustBookStock);
+            context.Catalogue.Add(bookOnLoanUntilToday);
+            context.Catalogue.Add(bookNotOnLoan);
+            context.Catalogue.Add(bookOnLoanUntilNextWeek);
+            context.Catalogue.Add(rustBookStock);
 
-                context.SaveChanges();
-
-            }
+            context.SaveChanges();
         }
     }
 }
