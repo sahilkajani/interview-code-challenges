@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OneBeyondApi.Model;
 
 namespace OneBeyondApi.DataAccess.OnLoan
 {
@@ -24,6 +25,21 @@ namespace OneBeyondApi.DataAccess.OnLoan
                             BorrowerName = x.OnLoanTo.Name
 
                         }).ToListAsync();
+        }
+
+        public async Task<BookStock?> GetBookOnLoanByIdAsync(Guid bookId)
+        {
+            return await _context.Catalogue
+                .Include(x => x.Book)
+                .Include(x => x.OnLoanTo)
+                .Where(x => x.OnLoanTo != null)
+                .FirstOrDefaultAsync(x => x.Book.Id == bookId);
+        }
+
+        public void UpdateBookAsReturnedAsync(BookStock bookStock)
+        {
+            _context.Catalogue.Update(bookStock);
+            _context.SaveChanges();
         }
     }
 }

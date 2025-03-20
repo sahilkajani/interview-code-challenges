@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OneBeyondApi;
 using OneBeyondApi.DataAccess;
+using OneBeyondApi.DataAccess.Fine;
 using OneBeyondApi.DataAccess.OnLoan;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IBorrowerRepository, BorrowerRepository>();
 builder.Services.AddScoped<ICatalogueRepository, CatalogueRepository>();
 builder.Services.AddScoped<IOnLoanRepository, OnLoanRepository>();
+builder.Services.AddScoped<IFineCalculator, FineCalculator>();
+builder.Services.AddScoped<IFineRepository, FineRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
