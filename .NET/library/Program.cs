@@ -3,6 +3,7 @@ using OneBeyondApi;
 using OneBeyondApi.DataAccess;
 using OneBeyondApi.DataAccess.Fine;
 using OneBeyondApi.DataAccess.OnLoan;
+using OneBeyondApi.DataAccess.Reservations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddScoped<ICatalogueRepository, CatalogueRepository>();
 builder.Services.AddScoped<IOnLoanRepository, OnLoanRepository>();
 builder.Services.AddScoped<IFineCalculator, FineCalculator>();
 builder.Services.AddScoped<IFineRepository, FineRepository>();
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

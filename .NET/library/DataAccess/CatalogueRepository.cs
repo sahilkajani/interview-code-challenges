@@ -18,6 +18,7 @@ namespace OneBeyondApi.DataAccess
                 .Include(x => x.Book)
                 .ThenInclude(x => x.Author)
                 .Include(x => x.OnLoanTo)
+                .Include(x => x.Reservations)
                 .ToList();
         }
 
@@ -27,6 +28,7 @@ namespace OneBeyondApi.DataAccess
                 .Include(x => x.Book)
                 .ThenInclude(x => x.Author)
                 .Include(x => x.OnLoanTo)
+                .Include(x => x.Reservations)
                 .ToList();
         }
     }
